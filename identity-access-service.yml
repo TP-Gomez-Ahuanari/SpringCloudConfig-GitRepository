@@ -23,13 +23,13 @@ spring:
 springdoc:
   api-docs:
     enabled: true
-    path: /api/v1/identity-access-service/v3/api-docs
+    path: /api/v1/identity-access/v3/api-docs
   swagger-ui:
     enabled: true
-    path: /api/v1/identity-access-service/doc/swagger-ui.html
+    path: /api/v1/identity-access/doc/swagger-ui.html
 
   packages-to-scan: com.kora
-  paths-to-match: /api/v1/identity-access-service/**
+  paths-to-match: /api/v1/identity-access/**
   
 eureka:
   client:
