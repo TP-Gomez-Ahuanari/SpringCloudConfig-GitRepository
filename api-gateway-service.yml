@@ -1,0 +1,70 @@
+server.port: 8080
+server.error.include-message: always
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: identity-access-route
+          uri: lb://identity-access-service
+          predicates:
+            - Path=/api/v1/identity-access/**
+          filters:
+            - AddResponseHeader=X-Powered-By, Kora Gateway Service
+        - id: personal-information-route
+          uri: lb://personal-information-service
+          predicates:
+            - Path=/api/v1/personal-information/**
+          filters:
+            - AddResponseHeader=X-Powered-By, Kora Gateway Service
+        - id: health-data-route
+          uri: lb://health-data-service
+          predicates:
+            - Path=/api/v1/health-data/**
+          filters:
+            - AddResponseHeader=X-Powered-By, Kora Gateway Service
+        - id: progress-management-route
+          uri: lb://progress-management-service
+          predicates:
+            - Path=/api/v1/progress-management/**
+          filters:
+            - AddResponseHeader=X-Powered-By, Kora Gateway Service
+        - id: personalized-techniques-route
+          uri: lb://personalized-techniques-service
+          predicates:
+            - Path=/api/v1/personalized-techniques/**
+          filters:
+            - AddResponseHeader=X-Powered-By, Kora Gateway Service
+        - id: history-favorites-route
+          uri: lb://history-favorites-service
+          predicates:
+            - Path=/api/v1/history-favorites/**
+          filters:
+            - AddResponseHeader=X-Powered-By, Kora Gateway Service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      initialInstanceInfoReplicationIntervalSeconds: 5
+      registryFetchIntervalSeconds: 5
+      instance:
+      leaseRenewalIntervalInSeconds: 5
+      leaseExpirationDurationInSeconds: 5
+  instance:
+    hostname: localhost
